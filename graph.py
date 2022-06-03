@@ -1,14 +1,3 @@
-"""
-def min_path(matrix: list, start_point: int, target_point: int) -> list:
-
-    Функция поиска кратчайшего пути по графу по алгоритму Дейкстры
-    :param: matrix - матрица связей
-    :param: start_point - начальная вершина
-    :param: target_point - целевая вершина
-    :return: список точек минимального пути от начальной к целевой вершине
-    """
-    
-
 class Graph(object):
     def __init__(self, nodes, init_graph):
         self.nodes = nodes
@@ -16,7 +5,7 @@ class Graph(object):
         
     def construct_graph(self, nodes, init_graph):
         '''
-        Этот метод обеспечивает симметричность графика. Другими словами, если существует путь от узла A к B со значением V, должен быть путь от узла B к узлу A со значением V.
+        Этот метод обеспечивает симметричность графа. Другими словами, если существует путь от узла A к B со значением V, должен быть путь от узла B к узлу A со значением V.
         '''
         graph = {}
         for node in nodes:
@@ -32,11 +21,11 @@ class Graph(object):
         return graph
     
     def get_nodes(self):
-        "Возвращает узлы графа"
+        """Возвращает узлы графа"""
         return self.nodes
     
     def get_outgoing_edges(self, node):
-        "Возвращает соседей узла"
+        """Возвращает соседей узла"""
         connections = []
         for out_node in self.nodes:
             if self.graph[node].get(out_node, False) != False:
@@ -44,7 +33,7 @@ class Graph(object):
         return connections
     
     def value(self, node1, node2):
-        "Возвращает значение ребра между двумя узлами."
+        """Возвращает значение ребра между двумя узлами."""
         return self.graph[node1][node2]
 
 def dijkstra_algorithm(graph, start_node):
