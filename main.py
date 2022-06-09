@@ -25,6 +25,15 @@ def create_weighted_destinations(ways_list: list) -> dict:
             res_dict[way[0]] = {way[1]: way[2] * way[3]}
     return res_dict
 
+
+def add_destination(route: list, destination: str, weight: int) -> list:
+    """ Добавляет в маршрут новую точку """
+    route[2].append(destination)
+    route[1] = destination
+    route[3] += weight
+    return route
+
+
 if __name__ == '__main__':
     data = csv_to_list('test_data.csv')
     print(data)
