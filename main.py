@@ -13,18 +13,24 @@ def csv_to_list(file_path: str) -> list:
     return res_list
 
 
-def create_weighted_destinations(ways_list: list) -> dict:
+def create_weighted_distances(ways_list: list) -> dict:
     """
     Создаёт из исходного списка симметричный словарь со взвешенными расстояниями до соседних пунктов
     """
     res_dict = {}
     for way in ways_list:
         if res_dict.get(way[0]):
-            res_dict[way[0]][way[1]] = way[2] * way[3]
+            res_dict[way[0]][way[1]] = int(way[2]) * int(way[3])
         else:
-            res_dict[way[0]] = {way[1]: way[2] * way[3]}
+            res_dict[way[0]] = {way[1]: int(way[2]) * int(way[3])}
+        if res_dict.get(way[1]):
+            res_dict[way[1]][way[0]] = int(way[2]) * int(way[3])
+        else:
+            res_dict[way[1]] = {way[0]: int(way[2]) * int(way[3])}
     return res_dict
 
 if __name__ == '__main__':
     data = csv_to_list('test_data.csv')
-    print(data)
+    distances = create_weighted_distances(data)
+    best_route = []  # [start, finish, [whole_route], weight]
+    routes = []
