@@ -5,12 +5,12 @@ class Car:
 
 
 class Truck(Car):
-    def __init__(self, patency=2, consumption=15):
+    def __init__(self, patency=2, consumption=12):
         super().__init__(patency, consumption)
 
 
 class Bus(Car):
-    def __init__(self, patency=1, consumption=12):
+    def __init__(self, patency=1, consumption=15):
         super().__init__(patency, consumption)
 
 
