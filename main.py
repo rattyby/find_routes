@@ -89,6 +89,8 @@ if __name__ == '__main__':
                     # если все транзитные есть - это новый лучший путь, его продлевать незачем, так что переходим дальше
                     if not False in check_transit:
                         best_route = new_route
+                        print('Промежуточный вариант')
+                        route_print(best_route, start_point, finish_point, transit_points, best_route[1])
                         continue
                 # оставляем маршрут для дальнейшего расширения
                 routes.append(new_route)
