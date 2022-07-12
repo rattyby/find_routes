@@ -4,9 +4,7 @@ from vehicles import Car, Truck, Bus, Suv
 
 
 def csv_to_list(file_path: str) -> list:
-    """
-    Читает файл с исходными данными и преобразует в список кортежей для дальнейшей обработки
-    """
+    """ Читает файл с исходными данными и преобразует в список кортежей для дальнейшей обработки. """
     res_list = []
     with open(file_path) as csvfile:
         intro_data = csv.reader(csvfile)
@@ -18,9 +16,7 @@ def csv_to_list(file_path: str) -> list:
 
 
 def create_weighted_distances(ways_list: list) -> dict:
-    """
-    Создаёт из исходного списка симметричный словарь со взвешенными расстояниями до соседних пунктов
-    """
+    """ Создаёт из исходного списка симметричный словарь со взвешенными расстояниями до соседних пунктов. """
     res_dict = {}
     for way in ways_list:
         if res_dict.get(way[0]):
@@ -35,7 +31,7 @@ def create_weighted_distances(ways_list: list) -> dict:
 
 
 def add_destination(route: list, destination: str, weight: float) -> list:
-    """ Добавляет маршрут с новой точкой """
+    """ Добавляет маршрут с новой точкой. """
     new_route = deepcopy(route)
     if new_route[1] == float('inf'):
         new_route[1] = 0
@@ -45,6 +41,7 @@ def add_destination(route: list, destination: str, weight: float) -> list:
 
 
 def route_print(route: list, start: str, finish: str, transit: list, gas: float) -> None:
+    """ Печатает маршрут и заданные параметры. """
     print(f'Для поездки из {start} в {finish} на выбранном транспорте потребуется {gas:.2f}л топлива.')
     print(f'Обязательны к посещению {", ".join(transit)}.')
     print('Маршрут передвижения следующий:')
@@ -59,18 +56,14 @@ if __name__ == '__main__':
     distances = create_weighted_distances(data)
 
     start_point = input('Введите начальный пункт\n')
-    # start_point = 'brest'
     finish_point = input('Введите конечный пункт\n')
-    # finish_point = 'vilna'
     transit_points = input('Введите промежуточные пункты через пробел\n').split()
     transit_points = [p for p in transit_points]
-    # transit_points = ['lida', 'polack', 'hrodna', 'minsk']
 
     best_route = [[start_point], float('inf')]  # [[whole_route], weight] - start=route[0][0], finish=route[0][-1]
     routes = [best_route]  # list of lists with routes
 
     # построение маршрутов
-    # maxroutes = 0
     while True:
         for point, weight in distances[routes[0][0][-1]].items():
             # если вес нового этапа пути больше веса лучшего, то пропускаем
@@ -94,8 +87,6 @@ if __name__ == '__main__':
                         continue
                 # оставляем маршрут для дальнейшего расширения
                 routes.append(new_route)
-                # if len(routes) > maxroutes:
-                #     maxroutes = len(routes)
         # убираем рассмотренный маршрут; если routes опустел - варианты закончились
         del routes[0]
         if not routes:
@@ -116,4 +107,3 @@ if __name__ == '__main__':
     gasoline = best_route[1] * vehicle.consumption / 100 / vehicle.patency
 
     route_print(best_route, start_point, finish_point, transit_points, gasoline)
-    # print('max count routes', maxroutes)
